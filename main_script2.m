@@ -1,4 +1,7 @@
 % Specify the folder where the files live.
+% dynamically read in all the images in a folder and do image segmentation
+% with default threshold values 
+
 myFolder = 'images/images';
 saveFolder = 'results/';
 % Check to make sure that folder actually exists.  Warn user if it doesn't.
@@ -23,8 +26,3 @@ for k = 1 : length(theFiles)
     end
     toc
 end
-
-% %%
-% fullFileName = 'images/008f81d20d9e2b4e.jpg';
-% saveName = 'results/parachutes';
-% image_segmentation(fullFileName, false, 0.125, 0, true, savename);

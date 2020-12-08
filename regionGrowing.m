@@ -175,11 +175,6 @@ while ~isempty(T)
     if newLabel < 1
         disp('error');
     end
-    
-%     % update average of affected region
-%     seedAvg(newLabel, 1) = mean(Y(seeds == newLabel), 'all');
-%     seedAvg(newLabel, 2) = mean(Cb(seeds == newLabel), 'all');
-%     seedAvg(newLabel, 3) = mean(Cr(seeds == newLabel), 'all');
 
     % update average of affected region
     seedAvg(newLabel, 1) = (seedAvg(newLabel, 1)*sizeReg(newLabel) + Y(r,c))/(sizeReg(newLabel) + 1);

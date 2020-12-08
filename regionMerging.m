@@ -49,7 +49,7 @@ for i = 1 : numRegions
 	regAvg(i, 4) = mean(Cr(regions == i), 'all');
 end
 disp('region averages computed');
-
+disp("Merging regions based on similarity");
 while true
    
     connectivityMat = false(numRegions);
@@ -143,7 +143,7 @@ while true
   end   % end similarity merging
 
 end % end while true
-
+disp("Merging regions based on size");
 
 % merge based on size
 while(true)   

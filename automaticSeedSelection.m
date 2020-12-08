@@ -88,29 +88,14 @@ Hthresh = H > T;
 % Hthresh = imerode(Hthresh, ones(3));
 % perform distance threshold
 Dthresh = D < Tdist;
+
 % Dthresh = imdilate(Dthresh, ones(3));
 % Dthresh = imerode(Dthresh, ones(3));
 
+% morphological operations don't generally improve performance 
 % potential seeds satisfy Conditions 1 and 2
 seeds = Hthresh & Dthresh;
-% seeds = imerode(seeds, ones(3));
-% seeds = imdilate(seeds, ones(3));
-% seeds are all those within region that meet conditions 1 & 2
-% who also don't lie on the border of other regions
-% TODO 
-% border detection to lessen seeding
-% label = 1;
-% seeds = double(seeds);
-% seeds(seeds == 1) = -1;
-% for r = 1 : numR
-%     for c = 1 : numC
-%        if seeds(r,c) == -1
-%            seeds = labelSeeds(seeds, r,c, label);
-%            label = label + 1;
-%        end
-%     end 
-% end
-% 
+
 
 % better method is to use MATLAB Built in label 
 % label based on 4 connectivity

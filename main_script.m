@@ -10,7 +10,7 @@ clc
 
 %% Read in image
 % 
-imgname = 'images/01587660047c5afa.jpg';
+imgname = 'images/00841769515cc799.jpg';
 im = imread(imgname);
 
 % cam = webcam;
@@ -23,7 +23,6 @@ if numel(im)/3 > 2.5e5
         im = imresize(im, 0.75); 
     end
 end
-% 
 % h = fspecial('gaussian', [5 5], 1);
 % im1 = imfilter(im, h, 'symmetric');
 im1 = im;
@@ -31,6 +30,7 @@ im2 = im1;
 %% Convert from RGB to YCC color space 
 
 YCCim = convertToYCC(im1);
+
 % YCCim = rgb2hsv(im1);
 %% Automatic Seed Selection
 
@@ -73,16 +73,9 @@ similarityThresh = 0.1;
 sizeThresh = numel(regions)/150;
 regions = regionMerging(YCCim, regions, similarityThresh, sizeThresh);
 disp("Merging completed");
-toc
-
-%% Display merged result
-% figure(5)
-% hold on
 mask = boundarymask(regions);
-im3= labeloverlay(im, mask, 'Transparency', 0, 'Colormap', [1, 0, 0]);
-% title("Regions after merging");
-% 
-
+im3= labeloverlay(im, mask, 'Transparency', 0, 'Colormap', [0, 1, 0]);
+toc
 
 %% Display results, Save 
 

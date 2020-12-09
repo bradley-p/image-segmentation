@@ -6,13 +6,24 @@
 % implements equation (9)
 %
 % 2 criteria are used for reigion-merging:
-% 1. similarity
-% 2. size
+% 1. similarity - defined by relative euclidian distance (eq 9)
+%   if the similarity (relative distance of average value) of 2 connected
+%   regions is less than a threshold, they are merged together. 
+%   The size and color averages of the new combined region is updated. 
+%   Similarity merging is prioritized based on the most
+%   similar, connected regions. Ends when there are no 2 connected regions
+%   with a relative distance less than the given treshold 
+% 2. size - defined by number of pixels with certain label
+%   similar to similarity threshold merging except regions with a size smaller
+%   than a given threshold are merged with the connected region most
+%   similar. Merges smallest regions first.
+%   also updates region sizes and averages after merging
+%   Merges until there are no regions smaller than the threshold
 %
 %
 % INPUT:
 % YCbCr color space image 
-% regions
+% initial regions found by automaticSeedSelection.m and regionGrowing.m
 % a Similarity Threshold
 % size threshold
 % OUTPUT:

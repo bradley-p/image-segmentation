@@ -76,6 +76,7 @@ D = computeDistance(Y, Cb, Cr, numR, numC);
 % using the matlab built in function will return thresh between 0 - 1
 
 [N, edges] = histcounts(im, 200);
+
 % T = otsuthresh(N);
 
 T = mean(H, 'all');
@@ -95,7 +96,10 @@ Dthresh = D < Tdist;
 % morphological operations don't generally improve performance 
 % potential seeds satisfy Conditions 1 and 2
 seeds = Hthresh & Dthresh;
-
+se = strel('disk', 1);
+seeds = imclose(seeds, se);
+se = strel('disk', 1);
+seeds = imopen(seeds, se);
 
 % better method is to use MATLAB Built in label 
 % label based on 4 connectivity

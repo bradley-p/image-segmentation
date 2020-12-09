@@ -2,8 +2,9 @@
 % dynamically read in all the images in a folder and do image segmentation
 % with default threshold values 
 
-myFolder = 'images/images';
-saveFolder = 'results/';
+
+myFolder = 'images';
+saveFolder = 'results3/';
 % Check to make sure that folder actually exists.  Warn user if it doesn't.
 if ~isfolder(myFolder)
     errorMessage = sprintf('Error: The following folder does not exist:\n%s\nPlease specify a new folder.', myFolder);
@@ -17,10 +18,10 @@ for k = 1 : length(theFiles)
     fullFileName = fullfile(theFiles(k).folder, baseFileName);
     fprintf(1, 'Now reading %s\n', fullFileName);
     % Now do whatever you want with this file name,
-    savename = sprintf('%s%s_%d',saveFolder, 'res_110' ,k);
+    savename = sprintf('%s%s_%d',saveFolder, 'result_0_10_150th' ,k);
     tic
     try
-    image_segmentation(fullFileName, true, 0.110, 0, true, savename);
+    image_segmentation(fullFileName, false, 0.10, 0, true, savename);
     catch
         disp("An error occurred ");
     end

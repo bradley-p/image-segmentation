@@ -69,7 +69,7 @@ fprintf("\n");
 % figure(4)
 % hold on
 mask = boundarymask(regions);
-im2 = labeloverlay(im, mask, 'Transparency', 0);
+im2 = labeloverlay(im, mask, 'Transparency', 0, 'Colormap', [0, 1, 0]);
 % title("Regions without merging");
 
 %% Region Merging 
@@ -86,7 +86,7 @@ disp("**** Merging Completed **** \n");
 fprintf("\n");
 fprintf("\n");
 mask = boundarymask(regions);
-im3 = labeloverlay(im, mask, 'Transparency', 0);
+im3 = labeloverlay(im, mask, 'Transparency', 0, 'Colormap', [0, 1, 0]);
 %% Display results, Save 
 
 fig = figure();

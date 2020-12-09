@@ -10,7 +10,7 @@ clc
 
 %% Read in image
 % 
-imgname = 'images/00841769515cc799.jpg';
+imgname = 'images/0083d9730b09bde1.jpg';
 im = imread(imgname);
 
 % cam = webcam;

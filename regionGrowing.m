@@ -41,6 +41,7 @@ Y = im(:,:,1);
 Cb = im(:,:,2);
 Cr = im(:,:,3);
 
+% compute averages for each region
 for i = 1 : numSeeds
    % compute Y_bar for seed/region i 
    seedAvg(i, 1) = mean(Y(seeds == i), 'all');
@@ -53,15 +54,15 @@ for i = 1 : numSeeds
 end
 disp('     initial averages computed')
 
-% use relative Euclidian distance (equation 8)
-% record neighbors of all regions in sorted list T
 
+% record unclassified neighbors of all regions in sorted list T
+% use relative Euclidian distance (equation 8)
 % implementation of section 4 item (3) on page 4 of the paper
 % initially populate T which contains: [row, column, relativeDistance]
 T = [];
 numR = size(seeds, 1);
 numC = size(seeds, 2);
-
+% Populate T with all the 8-connected neigbors of labeled areas 
 % ignore corners for simplicity 
 for r = 2 : numR - 1
     for c = 2 : numC - 1
@@ -139,15 +140,8 @@ while ~isempty(T)
     if lL == rL && uL == dL && lL == uL
         
        seeds(r,c) = lL; 
-%        sizeReg(lL) = sizeReg(lL) + 1;
        newLabel = lL;
-%        % recompute average for that region
-%        % compute Y_bar for seed/region i 
-%        seedAvg(lL, 1) = mean(Y(seeds == lL), 'all');
-%        % compute Cb_bar
-%        seedAvg(lL, 2) = mean(Cb(seeds == lL), 'all');
-%        % compute Cr_bar
-%        seedAvg(lL, 3) = mean(Cr(seeds == lL), 'all');
+        % recompute average for that region
         seedAvg(newLabel, 1) = (seedAvg(newLabel, 1)*sizeReg(newLabel) + Y(r,c))/(sizeReg(newLabel) + 1);
         seedAvg(newLabel, 2) = (seedAvg(newLabel, 2)*sizeReg(newLabel) + Cb(r,c))/(sizeReg(newLabel) + 1);
         seedAvg(newLabel, 3) = (seedAvg(newLabel, 3)*sizeReg(newLabel) + Cr(r,c))/(sizeReg(newLabel) + 1);

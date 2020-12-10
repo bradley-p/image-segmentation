@@ -28,6 +28,11 @@ similarity: 0.1, size: 1/100
 
 -
 
+<img src='./fineTunedResults/final_dolphins.tif'>
+similarity: 0.14, size: 1/60
+
+-
+
 <img src='./fineTunedResults/final_moose.tif'>
 similarity: 0.17, size: 150
 

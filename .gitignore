@@ -1,3 +1,4 @@
+*.pptx
 *.m~
 .DS_STORE
 .env

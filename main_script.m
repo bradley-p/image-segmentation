@@ -10,7 +10,7 @@ clc
 
 %% Read in image
 % 
-imgname = 'images/flowers.png';
+imgname = 'images/dolphins.png';
 im = imread(imgname);
 % 
 % cam = webcam;
@@ -22,7 +22,11 @@ if numel(im)/3 > 2.5e5
     while numel(im)/3 > 3e5
         im = imresize(im, 0.75); 
     end
+    
+else 
+    im = imresize(im, 0.75);
 end
+
 % h = fspecial('gaussian', [5 5], 1);
 % im1 = imfilter(im, h, 'symmetric');
 im1 = im;
@@ -70,8 +74,8 @@ im2 = labeloverlay(im2, mask, 'Transparency', 0, 'Colormap', [1, 0, 0]);
 tic
 % thresholds  given in paper
 disp("Starting region merging");
-similarityThresh = 0.1;
-sizeThresh = numel(regions)/100;
+similarityThresh = 0.14;
+sizeThresh = numel(regions)/60;
 regions = regionMerging(YCCim, regions, similarityThresh, sizeThresh);
 disp("Merging completed");
 mask = boundarymask(regions);

@@ -1,5 +1,5 @@
 %% Bradley Payne - Final Project
-% implements region growing algorihtm
+% implements region growing algorithm
 % defined by the paper: 
 % title: "Automatic seeded region growing ..."
 % authors: Shih, Cheng

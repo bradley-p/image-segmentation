@@ -2,7 +2,7 @@
 %  Final Project
 %  Main Script
 %  This project implements the segmentation described in the paper:
-%  title: "Automatic seeded region growing ..."
+%  title: "Automatic seeded region growing for color image segmentation"
 %  authors: Shih, Cheng
 close all;
 clear all;
@@ -10,9 +10,9 @@ clc
 
 %% Read in image
 % 
-imgname = 'images/0083d9730b09bde1.jpg';
+imgname = 'images/flowers.png';
 im = imread(imgname);
-
+% 
 % cam = webcam;
 % im = snapshot(cam);
 % cam = [];
@@ -30,12 +30,13 @@ im2 = im1;
 %% Convert from RGB to YCC color space 
 
 YCCim = convertToYCC(im1);
-
+% YCCim = rescale(im, 0.1, 255);
 % YCCim = rgb2hsv(im1);
 %% Automatic Seed Selection
-
+tic
 seeds = automaticSeedSelection(YCCim);
 numSeeds = max(seeds, [], 'all');
+toc
 fprintf("Automatic Seed Selection initially detected %.0f regions \n", numSeeds);
 
 %% Burn seeds into the original image 
@@ -62,7 +63,7 @@ toc
 % figure(4)
 % hold on
 mask = boundarymask(regions);
-im2 = labeloverlay(im2, mask, 'Transparency', 0);
+im2 = labeloverlay(im2, mask, 'Transparency', 0, 'Colormap', [1, 0, 0]);
 % title("Regions without merging");
 
 %% Region Merging 
@@ -70,11 +71,11 @@ tic
 % thresholds  given in paper
 disp("Starting region merging");
 similarityThresh = 0.1;
-sizeThresh = numel(regions)/150;
+sizeThresh = numel(regions)/100;
 regions = regionMerging(YCCim, regions, similarityThresh, sizeThresh);
 disp("Merging completed");
 mask = boundarymask(regions);
-im3= labeloverlay(im, mask, 'Transparency', 0, 'Colormap', [0, 1, 0]);
+im3= labeloverlay(im, mask, 'Transparency', 0, 'Colormap', [0, 0, 1]);
 toc
 
 %% Display results, Save 

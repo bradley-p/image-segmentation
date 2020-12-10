@@ -19,7 +19,8 @@
 % This function requires 2 thresholds
 % a similarity threshold
 % a distance threshold
-% The similarity threshold is computed using Otsu's method
+% The similarity threshold is computed using Otsu's method in the paper
+% I chose to alter this and use the average similarity as the threshold
 % distance threshold is hardcoded at 0.05
 
 function [seeds] = automaticSeedSelection(im)
@@ -74,12 +75,12 @@ D = computeDistance(Y, Cb, Cr, numR, numC);
 % similarity threshold is computed automatically using 
 % Otsu's method
 % using the matlab built in function will return thresh between 0 - 1
-
 [N, edges] = histcounts(im, 200);
+T = otsuthresh(N);
 
-% T = otsuthresh(N);
+T1 = mean(H, 'all');
 
-T = mean(H, 'all');
+T = max(T, T1);
 % Distance threshold was anectodotally found
 Tdist= 0.05; 
 
@@ -97,9 +98,10 @@ Dthresh = D < Tdist;
 % potential seeds satisfy Conditions 1 and 2
 seeds = Hthresh & Dthresh;
 se = strel('disk', 1);
-seeds = imclose(seeds, se);
-se = strel('disk', 1);
+
+% seeds = imclose(seeds, se);
 seeds = imopen(seeds, se);
+
 
 % better method is to use MATLAB Built in label 
 % label based on 4 connectivity
@@ -178,6 +180,7 @@ end
 % Recursive Helper function
 % Labels seeds based on 4 connectivity
 % Disqualifies border pixels as seeds
+% I chose to use MATLAB built-in bwlabel for efficiency
 function [seeds] = labelSeeds(seeds, r,c, label)
 numR = size(seeds,1);
 numC = size(seeds,2);

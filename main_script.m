@@ -4,13 +4,13 @@
 %  This project implements the segmentation described in the paper:
 %  title: "Automatic seeded region growing for color image segmentation"
 %  authors: Shih, Cheng
-close all;
-clear all;
-clc
+% close all;
+% clear all;
+% clc
 
 %% Read in image
 % 
-imgname = 'images/dolphins.png';
+imgname = 'images/seal.png';
 im = imread(imgname);
 % 
 % cam = webcam;
@@ -27,8 +27,6 @@ else
     im = imresize(im, 0.75);
 end
 
-% h = fspecial('gaussian', [5 5], 1);
-% im1 = imfilter(im, h, 'symmetric');
 im1 = im;
 im2 = im1;
 %% Convert from RGB to YCC color space 
@@ -74,8 +72,9 @@ im2 = labeloverlay(im2, mask, 'Transparency', 0, 'Colormap', [1, 0, 0]);
 tic
 % thresholds  given in paper
 disp("Starting region merging");
-similarityThresh = 0.14;
-sizeThresh = numel(regions)/60;
+similarityThresh = 0.1;
+sizeThresh = 1/150;
+sizeThresh = sizeThresh*numel(regions);
 regions = regionMerging(YCCim, regions, similarityThresh, sizeThresh);
 disp("Merging completed");
 mask = boundarymask(regions);
@@ -89,4 +88,4 @@ hold on
 subplot(2,2,1), imshow(im), title("original image");
 subplot(2,2,2), imshow(im1), title("Initial seeds marked in red");
 subplot(2,2,3), imshow(im2), title("Regions without merging");
-subplot(2,2,4), imshow(im3), title("Regions after merging");
+subplot(2,2,4), imshow(im3), title("Regions after initial merging");

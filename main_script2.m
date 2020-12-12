@@ -21,7 +21,10 @@ for k = 1 : length(theFiles)
     savename = sprintf('%s%s_%d',saveFolder, 'result_0_10_150th' ,k);
     tic
     try
-    image_segmentation(fullFileName, false, 0.10, 0, true, savename);
+        scaleDown = true;
+        doSave = false;
+        
+        image_segmentation(fullFileName, scaleDown, 0.10, 0, doSave, savename);
     catch
         disp("An error occurred ");
     end

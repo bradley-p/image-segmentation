@@ -1,6 +1,12 @@
 # Notable Results 
---
-The write up for the rest of the project is in the README.docx / README.pdf file
+
+The code in this repository is a MATLAB implementation of the paper "Automatic Seeded Region Growing for Color Image Segmentation" by Shih and Cheng. The method consists of 4 main components:
+1. Converting RGB image to the YCbCr color space
+1. Automatically seed selection
+1. Region growing based on the initial seeds
+1. Merging similar regions (This may include further merging with different threshold values)
+
+The images I used for experiments are randomly selected from the 2019 Kaggle image segmentation competition dataset. Some results are included below. 
 
 -------
 **underneath each image, the final similarity and size thresholds are given. Each image was initially merged with the similarity threshold of 0.1 and size of 1/150 of the total image size**
